@@ -3,6 +3,9 @@ package com.zungx.mvpdagger.ui.user;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.zungx.mvpdagger.R;
 import com.zungx.mvpdagger.app.ZungXApplication;
@@ -13,6 +16,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements UserView {
+
+    private Button btnReload;
+    private TextView tvContent;
 
     @Inject
     UserPresenter userPresenter;
@@ -26,6 +32,15 @@ public class MainActivity extends AppCompatActivity implements UserView {
 
         userPresenter.setView(this);
         userPresenter.getUser();
+
+        tvContent = (TextView) findViewById(R.id.tv_content);
+        btnReload = (Button) findViewById(R.id.btn_reload);
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userPresenter.getUser();
+            }
+        });
     }
 
     @Override
@@ -40,9 +55,18 @@ public class MainActivity extends AppCompatActivity implements UserView {
 
     @Override
     public void showUser(List<User> userList) {
+        String listUser = "";
         for (User user : userList) {
-            Log.d("ZungX", "_____" + user.getUsername());
+            listUser += user.getUsername() + " \n ";
         }
+
+        final String finalListUser = listUser;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tvContent.setText("List user \n "+ finalListUser);
+            }
+        });
     }
 
     @Override

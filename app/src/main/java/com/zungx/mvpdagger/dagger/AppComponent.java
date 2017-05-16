@@ -1,5 +1,6 @@
 package com.zungx.mvpdagger.dagger;
 
+import com.zungx.mvpdagger.network.BaseRestClient;
 import com.zungx.mvpdagger.ui.user.MainActivity;
 import com.zungx.mvpdagger.ui.user.UserPresenterImpl;
 
@@ -18,4 +19,6 @@ public interface AppComponent {
     void inject(MainActivity target);
 
     void inject(UserPresenterImpl target);
+
+    void inject(BaseRestClient target);
 }

@@ -1,6 +1,9 @@
 package com.zungx.mvpdagger.dagger;
 
+import android.content.Context;
+
 import com.zungx.mvpdagger.app.Constants;
+import com.zungx.mvpdagger.network.BaseRestClient;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -15,18 +18,12 @@ import okhttp3.OkHttpClient;
 
 @Module
 public class NetworkModule {
+
     private static final String NAME_BASE_URL = "NAME_BASE_URL";
 
     @Provides
-    @Named(NAME_BASE_URL)
-    String provideBaseUrlString(){
-        return Constants.BASE_URL;
-    }
-
-    @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient() {
-        return new OkHttpClient();
+    BaseRestClient provideBaseRestClient(Context context) {
+        return new BaseRestClient(context);
     }
-
 }
