@@ -5,6 +5,8 @@ import android.app.Application;
 import com.zungx.mvpdagger.dagger.AppComponent;
 import com.zungx.mvpdagger.dagger.AppModule;
 import com.zungx.mvpdagger.dagger.DaggerAppComponent;
+import com.zungx.mvpdagger.dagger.NetworkModule;
+import com.zungx.mvpdagger.dagger.PresenterModule;
 
 /**
  * Created by dungtv on 5/16/17.
@@ -27,6 +29,8 @@ public class ZungXApplication extends Application {
     protected AppComponent initDagger(ZungXApplication application){
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(application))
+                .networkModule(new NetworkModule())
+                .presenterModule(new PresenterModule())
                 .build();
     }
 }
